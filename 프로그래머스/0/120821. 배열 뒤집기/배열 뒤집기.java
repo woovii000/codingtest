@@ -1,12 +1,11 @@
 class Solution {
     public int[] solution(int[] num_list) {
-        //어떤걸 쓸지*
-        int[] answer = new int[num_list.length];
-        //어떻게 구현할지*
-        // for (int i : num_list){
-        for (int i=0; i<num_list.length; i++){
-            answer[i] = num_list[num_list.length-i-1];  //수정  
+        int temp = 0;
+        for(int i=0;i<num_list.length/2; i++){
+            temp = num_list[i];
+            num_list[i] = num_list[num_list.length-i-1];
+            num_list[num_list.length-i-1] = temp;
         }
-        return answer;
+        return num_list;
     }
 }
