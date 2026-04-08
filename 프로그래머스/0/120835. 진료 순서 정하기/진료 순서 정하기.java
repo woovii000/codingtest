@@ -1,14 +1,26 @@
+import java.util.Arrays;
+
 class Solution {
     public int[] solution(int[] emergency) {
-        int[] answer = new int[emergency.length]; //{0, ... , 0} 초기화
-        for(int i=0; i<emergency.length; i++){ //{1, ... ,1} 우선순위
-            answer[i] += 1;
+        // 값 오름차순->내림차순 -> idx값 = 중요도 오름차순 
+        int[] sort = new int[emergency.length];
+        for(int i=0; i<emergency.length; i++){
+            sort[i] = emergency[i];
+        }
+        Arrays.sort(sort); // 오름차순 정렬
+        for(int i=0; i<sort.length/2; i++){ //내림차순 정렬
+            int temp = sort[i];
+            sort[i] = sort[sort.length-i-1];
+            sort[sort.length-i-1] = temp;
         }
         
-        for(int i=0; i<emergency.length-1; i++){
-            for(int j=i+1; j<emergency.length; j++){ //작은놈 후순위(숫자큼)
-                if(emergency[i]>emergency[j]){answer[j] += 1;}
-                else if (emergency[i]<emergency[j]){answer[i] += 1;}
+        int[] answer = new int[emergency.length];
+        for (int i = 0; i<emergency.length ; i++){
+            for(int j = 0; j<emergency.length ; j++){
+               if(emergency[j] == sort[i]){
+                    answer[j] = i + 1; // 값 바뀐 후, 동일하면 문제 발생
+                    break;
+               } 
             }
         }
         return answer;
